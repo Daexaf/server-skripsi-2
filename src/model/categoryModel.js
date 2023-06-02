@@ -23,10 +23,16 @@ const insertCategory = (queryObject) => {
 };
 
 const updateCategory = (queryObject) => {
-  const { queryId, name } = queryObject;
+  const { id_categories, nama } = queryObject;
   return Pool.query(
     `UPDATE categories SET nama='${nama}'` +
       `WHERE id_categories='${id_categories}'`
+  );
+};
+
+const deleteCategory = (id_categories) => {
+  return Pool.query(
+    `DELETE FROM categories WHERE id_categories='${id_categories}'`
   );
 };
 
@@ -35,4 +41,5 @@ module.exports = {
   selectDetailCategory,
   insertCategory,
   updateCategory,
+  deleteCategory,
 };

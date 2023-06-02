@@ -109,9 +109,31 @@ const editCategory = async (req, res) => {
   }
 };
 
+const deleteCategory = async (req, res) => {
+  // Set param id as const
+  const id_categories = req.params.id;
+  try {
+    const deleteResult = await categoryModel.deleteCategory(id_categories);
+    if (deleteResult.rowCount > 0) {
+      return commonHelper.response(
+        res,
+        deleteResult.rows,
+        200,
+        "deleteCategory deleted"
+      );
+    } else {
+      return commonHelper.response(res, null, 404, "deleteCategory not found");
+    }
+  } catch (error) {
+    console.log(error);
+    return commonHelper.response(res, null, 500, "Failed to deleteCategory");
+  }
+};
+
 module.exports = {
   getAllCategory,
   getDetailCategory,
   addCategory,
   editCategory,
+  deleteCategory,
 };
