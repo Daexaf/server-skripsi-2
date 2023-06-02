@@ -4,7 +4,8 @@ require("dotenv").config();
 // Import
 const mainRouter = require("./src/router/index"); // Import main router
 const express = require("express"); // Import express library
-
+const app = express(); // Import express
+const cors = require("cors"); // Import cors
 const commonHelper = require("./src/helper/common");
 
 // Use middleware
