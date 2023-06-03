@@ -1,5 +1,6 @@
 // Import model
 const productModel = require("../model/productModel");
+const categoryModel = require("../model/categoryModel");
 // Import Helper for Template Response
 const commonHelper = require("../helper/common");
 
@@ -8,7 +9,14 @@ const getAllProduct = async (req, res) => {
   const queryLimit = req.query.limit;
   try {
     const selectResult = await productModel.selectAllProduct(queryLimit);
+    const selectCategoryResult = (await categoryModel.selectAllCategory()).rows;
     if (selectResult.rowCount > 0) {
+      selectResult.rows.map((element)=>{
+        element.category = selectCategoryResult.filter((category)=>{
+          return category.id_categories === element.id_category
+        })[0]
+        delete element.id_category
+      })
       return commonHelper.response(
         res,
         selectResult.rows,
