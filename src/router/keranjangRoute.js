@@ -5,8 +5,8 @@ const keranjangController = require("../controller/keranjangController");
 // Routes
 router.get("/", keranjangController.getAllKeranjang);
 router.get("/:id", keranjangController.getDetailkeranjang);
-// router.post("/", keranjangController.addkeranjang);
-// router.put("/:id", keranjangController.editkeranjang);
-// router.delete("/:id", keranjangController.deletekeranjang);
+router.post("/", keranjangController.addKeranjang);
+router.put("/:id", keranjangController.editKeranjang);
+router.delete("/:id", keranjangController.deleteKeranjang);
 // Export
 module.exports = router;

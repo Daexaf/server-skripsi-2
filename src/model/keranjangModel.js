@@ -15,7 +15,33 @@ const selectDetailKeranjang = (queryId) => {
   );
 };
 
+const insertKeranjang = (queryObject) => {
+  const { id_keranjangs, jumlah, total_harga, product, id_tables } =
+    queryObject;
+  return Pool.query(
+    `INSERT INTO keranjangs(id_keranjangs, jumlah, total_harga, product,  id_tables)` +
+      `VALUES('${id_keranjangs}', '${jumlah}','${total_harga}', '${product}', '${id_tables}')`
+  );
+};
+
+const updateKeranjang = (queryObject) => {
+  const { id_keranjangs, jumlah, total_harga, product } = queryObject;
+  return Pool.query(
+    `UPDATE keranjangs SET jumlah='${jumlah}', total_harga='${total_harga}', product='${product}'` +
+      `WHERE id_keranjangs='${id_keranjangs}'`
+  );
+};
+
+const deleteKeranjang = (id_keranjangs) => {
+  return Pool.query(
+    `DELETE FROM keranjangs WHERE id_keranjangs='${id_keranjangs}'`
+  );
+};
+
 module.exports = {
   selectAllKeranjang,
   selectDetailKeranjang,
+  insertKeranjang,
+  updateKeranjang,
+  deleteKeranjang,
 };
