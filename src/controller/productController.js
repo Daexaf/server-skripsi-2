@@ -65,10 +65,11 @@ const addProduct = async (req, res) => {
   } catch (error) {
     console.log(error);
     if (error.detail && error.detail.includes("already exists.")) {
-      return commonHelper.response(res, null, 400, "product  already exist");
-    } else {
-      return commonHelper.response(res, null, 500, "Failed to add product");
+      return commonHelper.response(res, null, 400, "Product already exist");
+    } else if (error.detail && error.detail.includes('is not present in table "categories".')) {
+      return commonHelper.response(res, null, 400, "Category id is not present in table categories")
     }
+    return commonHelper.response(res, null, 500, "Failed to add product");
   }
 };
 
@@ -92,15 +93,11 @@ const editProduct = async (req, res) => {
   } catch (error) {
     console.log(error);
     if (error.detail && error.detail.includes("already exists.")) {
-      return commonHelper.response(
-        res,
-        null,
-        400,
-        "Product name already exist"
-      );
-    } else {
-      return commonHelper.response(res, null, 500, "Product to update skill");
+      return commonHelper.response(res, null, 400, "Product already exist");
+    } else if (error.detail && error.detail.includes('is not present in table "categories".')) {
+      return commonHelper.response(res, null, 400, "Category id is not present in table categories")
     }
+    return commonHelper.response(res, null, 500, "Failed to edit product");
   }
 };
 

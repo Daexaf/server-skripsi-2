@@ -14,21 +14,20 @@ const selectDetailProduct = (queryId) => {
 };
 
 const insertProduct = (queryObject) => {
-  console.log(queryObject);
-  const { id_products, kode, nama, harga, is_ready, gambar, category } =
+  const { id_products, kode, nama, harga, is_ready, gambar, id_category } =
     queryObject;
   return Pool.query(
-    `INSERT INTO products(id_products, kode, nama, harga, is_ready, gambar, category)` +
-      `VALUES(${id_products}, '${kode}','${nama}', ${harga}, '${is_ready}', '${gambar}', ${category})`
+    `INSERT INTO products(id_products, kode, nama, harga, is_ready, gambar, id_category)` +
+      `VALUES(${id_products}, '${kode}','${nama}', ${harga}, '${is_ready}', '${gambar}', ${id_category})`
   );
 };
 
 const updateProduct = (queryObject) => {
-  const { id_products, kode, nama, harga, is_ready, gambar, category } =
+  const { id_products, kode, nama, harga, is_ready, gambar, id_category } =
     queryObject;
   return Pool.query(
-    `UPDATE products SET kode='${kode}', nama='${nama}', harga=${harga}, is_ready=${is_ready}, gambar='${gambar}', category=${category}` +
-      `WHERE id_products='${id_products}'`
+    `UPDATE products SET kode='${kode}', nama='${nama}', harga=${harga}, is_ready=${is_ready}, gambar='${gambar}', id_category=${id_category}` +
+      `WHERE id_products=${id_products}`
   );
 };
 

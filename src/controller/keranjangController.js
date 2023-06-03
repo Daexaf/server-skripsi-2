@@ -70,10 +70,11 @@ const addKeranjang = async (req, res) => {
   } catch (error) {
     console.log(error);
     if (error.detail && error.detail.includes("already exists.")) {
-      return commonHelper.response(res, null, 400, "Keranjang  already exist");
-    } else {
-      return commonHelper.response(res, null, 500, "Failed to add Keranjang");
+      return commonHelper.response(res, null, 400, "Keranjang already exist");
+    } else if (error.detail && error.detail.includes('is not present in table "tables".')) {
+      return commonHelper.response(res, null, 400, "Table id is not present in table tables")
     }
+    return commonHelper.response(res, null, 500, "Failed to add keranjang");
   }
 };
 
@@ -97,15 +98,11 @@ const editKeranjang = async (req, res) => {
   } catch (error) {
     console.log(error);
     if (error.detail && error.detail.includes("already exists.")) {
-      return commonHelper.response(res, null, 400, "keranjang already exist");
-    } else {
-      return commonHelper.response(
-        res,
-        null,
-        500,
-        "Failed to update keranjang"
-      );
+      return commonHelper.response(res, null, 400, "Keranjang already exist");
+    } else if (error.detail && error.detail.includes('is not present in table "tables".')) {
+      return commonHelper.response(res, null, 400, "Table id is not present in table tables")
     }
+    return commonHelper.response(res, null, 500, "Failed to edit keranjang");
   }
 };
 
