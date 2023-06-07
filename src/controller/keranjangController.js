@@ -4,27 +4,47 @@ const keranjangModel = require("../model/keranjangModel");
 const commonHelper = require("../helper/common");
 
 const getAllKeranjang = async (req, res) => {
-  // Set params as const
-  const queryLimit = req.query.limit;
-  try {
-    const selectResult = await keranjangModel.selectAllKeranjang(queryLimit);
-    if (selectResult.rowCount > 0) {
-      return commonHelper.response(
-        res,
-        selectResult.rows,
-        200,
-        "Get all keranjang success"
-      );
-    } else {
-      return commonHelper.response(res, null, 404, "No keranjang available");
+  if (Object.keys(req.query).length !== 0) {
+    if (req.query.id_tables) {
+      try {
+        const selectResult = await keranjangModel.selectKeranjangByIdTable(req.query.id_tables);
+        if (selectResult.rowCount > 0) {
+          return commonHelper.response(
+            res,
+            selectResult.rows,
+            200,
+            "Get keranjang success"
+          );
+        } else {
+          return commonHelper.response(res, null, 404, "No keranjang available");
+        }
+      } catch (error) {
+        console.log(error);
+        return commonHelper.response(res, null, 500, "Failed to getAllkeranjang");
+      }
     }
-  } catch (error) {
-    console.log(error);
-    return commonHelper.response(res, null, 500, "Failed to getAllkeranjang");
+  } else {
+    try {
+      const selectResult = await keranjangModel.selectAllKeranjang();
+      if (selectResult.rowCount > 0) {
+        return commonHelper.response(
+          res,
+          selectResult.rows,
+          200,
+          "Get all keranjang success"
+        );
+      } else {
+        return commonHelper.response(res, null, 404, "No keranjang available");
+      }
+    } catch (error) {
+      console.log(error);
+      return commonHelper.response(res, null, 500, "Failed to getAllkeranjang");
+    }
   }
 };
 
-const getDetailkeranjang = async (req, res) => {
+const getKeranjangByIdTable = async (req, res) => {
+  console.log(req.query)
   // Set param id as const
   const queryId = req.params.id;
   try {
@@ -35,7 +55,7 @@ const getDetailkeranjang = async (req, res) => {
         res,
         selectResult.rows,
         200,
-        "Get detail keranjang success"
+        "Get keranjang success"
       );
     } else {
       return commonHelper.response(
@@ -51,7 +71,7 @@ const getDetailkeranjang = async (req, res) => {
       res,
       null,
       500,
-      "Failed to get keranjang Category"
+      "Failed to get keranjang"
     );
   }
 };
@@ -127,10 +147,34 @@ const deleteKeranjang = async (req, res) => {
   }
 };
 
+const deleteKeranjangQuery = async (req, res) => {
+  if (req.query.id_tables) {
+  try {
+    const deleteResult = await keranjangModel.deleteKeranjangByIdTable(req.query.id_tables);
+    if (deleteResult.rowCount > 0) {
+      return commonHelper.response(
+        res,
+        deleteResult.rows,
+        200,
+        "keranjang deleted"
+      );
+    } else {
+      return commonHelper.response(res, null, 404, "Table not found");
+    }
+  } catch (error) {
+    console.log(error);
+    return commonHelper.response(res, null, 500, "Failed to delete keranjang");
+  }
+  } else {
+    return commonHelper.response(res, null, 400, "Query is empty");
+  }
+};
+
 module.exports = {
   getAllKeranjang,
-  getDetailkeranjang,
+  getKeranjangByIdTable,
   addKeranjang,
   editKeranjang,
   deleteKeranjang,
+  deleteKeranjangQuery
 };

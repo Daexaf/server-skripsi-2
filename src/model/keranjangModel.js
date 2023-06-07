@@ -1,11 +1,20 @@
 const Pool = require("../config/db");
 
-const selectAllKeranjang = (queryLimit) => {
-  if (!queryLimit) {
-    queryLimit = 10;
-  }
+const selectAllKeranjang = () => {
   return Pool.query(
-    `SELECT * FROM keranjangs ORDER BY id_keranjangs ASC LIMIT '${queryLimit}'`
+    `SELECT * FROM keranjangs ORDER BY id_keranjangs ASC`
+  );
+};
+
+const selectKeranjangByIdProduct = (queryId) => {
+  return Pool.query(
+    `SELECT * FROM keranjangs WHERE product='${queryId}'`
+  );
+};
+
+const selectKeranjangByIdTable = (queryId) => {
+  return Pool.query(
+    `SELECT * FROM keranjangs WHERE id_tables='${queryId}'`
   );
 };
 
@@ -38,10 +47,19 @@ const deleteKeranjang = (id_keranjangs) => {
   );
 };
 
+const deleteKeranjangByIdTable = (id_tables) => {
+  return Pool.query(
+    `DELETE FROM keranjangs WHERE id_tables='${id_tables}'`
+  );
+};
+
 module.exports = {
   selectAllKeranjang,
   selectDetailKeranjang,
+  selectKeranjangByIdProduct,
+  selectKeranjangByIdTable,
   insertKeranjang,
   updateKeranjang,
   deleteKeranjang,
+  deleteKeranjangByIdTable
 };
