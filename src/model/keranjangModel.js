@@ -1,21 +1,15 @@
 const Pool = require("../config/db");
 
 const selectAllKeranjang = () => {
-  return Pool.query(
-    `SELECT * FROM keranjangs ORDER BY id_keranjangs ASC`
-  );
+  return Pool.query(`SELECT * FROM keranjangs ORDER BY id_keranjangs ASC`);
 };
 
 const selectKeranjangByIdProduct = (queryId) => {
-  return Pool.query(
-    `SELECT * FROM keranjangs WHERE product='${queryId}'`
-  );
+  return Pool.query(`SELECT * FROM keranjangs WHERE product='${queryId}'`);
 };
 
 const selectKeranjangByIdTable = (queryId) => {
-  return Pool.query(
-    `SELECT * FROM keranjangs WHERE id_tables='${queryId}'`
-  );
+  return Pool.query(`SELECT * FROM keranjangs WHERE id_tables='${queryId}'`);
 };
 
 const selectDetailKeranjang = (queryId) => {
@@ -48,9 +42,7 @@ const deleteKeranjang = (id_keranjangs) => {
 };
 
 const deleteKeranjangByIdTable = (id_tables) => {
-  return Pool.query(
-    `DELETE FROM keranjangs WHERE id_tables='${id_tables}'`
-  );
+  return Pool.query(`DELETE FROM keranjangs WHERE id_tables='${id_tables}'`);
 };
 
 module.exports = {
@@ -61,5 +53,5 @@ module.exports = {
   insertKeranjang,
   updateKeranjang,
   deleteKeranjang,
-  deleteKeranjangByIdTable
+  deleteKeranjangByIdTable,
 };

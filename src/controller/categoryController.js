@@ -2,6 +2,8 @@
 const categoryModel = require("../model/categoryModel");
 // Import Helper for Template Response
 const commonHelper = require("../helper/common");
+// Import random id
+const { v4: uuidv4 } = require("uuid");
 
 const getAllCategory = async (req, res) => {
   // Set params as const
@@ -58,7 +60,7 @@ const getDetailCategory = async (req, res) => {
 
 const addCategory = async (req, res) => {
   // Generate Id
-  // req.body.queryId = uuidv4();
+  req.body.id_categories = uuidv4();
   try {
     const insertResult = await categoryModel.insertCategory(req.body);
     return commonHelper.response(res, insertResult.rows, 200, "Category added");
@@ -122,11 +124,11 @@ const deleteCategory = async (req, res) => {
         "deleteCategory deleted"
       );
     } else {
-      return commonHelper.response(res, null, 404, "deleteCategory not found");
+      return commonHelper.response(res, null, 404, "delete Category not found");
     }
   } catch (error) {
     console.log(error);
-    return commonHelper.response(res, null, 500, "Failed to deleteCategory");
+    return commonHelper.response(res, null, 500, "Failed to delete Category");
   }
 };
 

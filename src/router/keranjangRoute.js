@@ -4,7 +4,7 @@ const router = express.Router();
 const keranjangController = require("../controller/keranjangController");
 // Routes
 router.get("/", keranjangController.getAllKeranjang);
-router.get("/:id", keranjangController.getKeranjangByIdTable);
+router.get("/:id", keranjangController.getDetailKeranjang);
 router.post("/", keranjangController.addKeranjang);
 router.put("/:id", keranjangController.editKeranjang);
 router.delete("/:id", keranjangController.deleteKeranjang);

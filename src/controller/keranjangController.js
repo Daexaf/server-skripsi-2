@@ -2,12 +2,16 @@
 const keranjangModel = require("../model/keranjangModel");
 // Import Helper for Template Response
 const commonHelper = require("../helper/common");
+// Import random id
+const { v4: uuidv4 } = require("uuid");
 
 const getAllKeranjang = async (req, res) => {
   if (Object.keys(req.query).length !== 0) {
     if (req.query.id_tables) {
       try {
-        const selectResult = await keranjangModel.selectKeranjangByIdTable(req.query.id_tables);
+        const selectResult = await keranjangModel.selectKeranjangByIdTable(
+          req.query.id_tables
+        );
         if (selectResult.rowCount > 0) {
           return commonHelper.response(
             res,
@@ -16,13 +20,24 @@ const getAllKeranjang = async (req, res) => {
             "Get keranjang success"
           );
         } else {
-          return commonHelper.response(res, null, 404, "No keranjang available");
+          return commonHelper.response(
+            res,
+            null,
+            404,
+            "No keranjang available"
+          );
         }
       } catch (error) {
         console.log(error);
-        return commonHelper.response(res, null, 500, "Failed to getAllkeranjang");
+        return commonHelper.response(
+          res,
+          null,
+          500,
+          "Failed to getAllkeranjang"
+        );
       }
     }
+    return commonHelper.response(res, null, 400, "No matching query");
   } else {
     try {
       const selectResult = await keranjangModel.selectAllKeranjang();
@@ -43,8 +58,8 @@ const getAllKeranjang = async (req, res) => {
   }
 };
 
-const getKeranjangByIdTable = async (req, res) => {
-  console.log(req.query)
+const getDetailKeranjang = async (req, res) => {
+  console.log(req.query);
   // Set param id as const
   const queryId = req.params.id;
   try {
@@ -67,32 +82,30 @@ const getKeranjangByIdTable = async (req, res) => {
     }
   } catch (error) {
     console.log(error);
-    return commonHelper.response(
-      res,
-      null,
-      500,
-      "Failed to get keranjang"
-    );
+    return commonHelper.response(res, null, 500, "Failed to get keranjang");
   }
 };
 
 const addKeranjang = async (req, res) => {
   // Generate Id
-  // req.body.queryId = uuidv4();
+  req.body.id_keranjangs = uuidv4();
   try {
     const insertResult = await keranjangModel.insertKeranjang(req.body);
-    return commonHelper.response(
-      res,
-      insertResult.rows,
-      200,
-      "Keranjang added"
-    );
+    return commonHelper.response(res, req.body, 200, "Keranjang added");
   } catch (error) {
     console.log(error);
     if (error.detail && error.detail.includes("already exists.")) {
       return commonHelper.response(res, null, 400, "Keranjang already exist");
-    } else if (error.detail && error.detail.includes('is not present in table "tables".')) {
-      return commonHelper.response(res, null, 400, "Table id is not present in table tables")
+    } else if (
+      error.detail &&
+      error.detail.includes('is not present in table "tables".')
+    ) {
+      return commonHelper.response(
+        res,
+        null,
+        400,
+        "Table id is not present in table tables"
+      );
     }
     return commonHelper.response(res, null, 500, "Failed to add keranjang");
   }
@@ -119,8 +132,16 @@ const editKeranjang = async (req, res) => {
     console.log(error);
     if (error.detail && error.detail.includes("already exists.")) {
       return commonHelper.response(res, null, 400, "Keranjang already exist");
-    } else if (error.detail && error.detail.includes('is not present in table "tables".')) {
-      return commonHelper.response(res, null, 400, "Table id is not present in table tables")
+    } else if (
+      error.detail &&
+      error.detail.includes('is not present in table "tables".')
+    ) {
+      return commonHelper.response(
+        res,
+        null,
+        400,
+        "Table id is not present in table tables"
+      );
     }
     return commonHelper.response(res, null, 500, "Failed to edit keranjang");
   }
@@ -149,22 +170,29 @@ const deleteKeranjang = async (req, res) => {
 
 const deleteKeranjangQuery = async (req, res) => {
   if (req.query.id_tables) {
-  try {
-    const deleteResult = await keranjangModel.deleteKeranjangByIdTable(req.query.id_tables);
-    if (deleteResult.rowCount > 0) {
+    try {
+      const deleteResult = await keranjangModel.deleteKeranjangByIdTable(
+        req.query.id_tables
+      );
+      if (deleteResult.rowCount > 0) {
+        return commonHelper.response(
+          res,
+          deleteResult.rows,
+          200,
+          "keranjang deleted"
+        );
+      } else {
+        return commonHelper.response(res, null, 404, "Table not found");
+      }
+    } catch (error) {
+      console.log(error);
       return commonHelper.response(
         res,
-        deleteResult.rows,
-        200,
-        "keranjang deleted"
+        null,
+        500,
+        "Failed to delete keranjang"
       );
-    } else {
-      return commonHelper.response(res, null, 404, "Table not found");
     }
-  } catch (error) {
-    console.log(error);
-    return commonHelper.response(res, null, 500, "Failed to delete keranjang");
-  }
   } else {
     return commonHelper.response(res, null, 400, "Query is empty");
   }
@@ -172,9 +200,9 @@ const deleteKeranjangQuery = async (req, res) => {
 
 module.exports = {
   getAllKeranjang,
-  getKeranjangByIdTable,
+  getDetailKeranjang,
   addKeranjang,
   editKeranjang,
   deleteKeranjang,
-  deleteKeranjangQuery
+  deleteKeranjangQuery,
 };
