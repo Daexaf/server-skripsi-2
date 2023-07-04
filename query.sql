@@ -17,6 +17,7 @@ CREATE TABLE "keranjangs"(
     "total_harga" INTEGER NOT NULL,
     "product" CHAR(36) NOT NULL,
     "id_tables" CHAR(36) NOT NULL,
+    "keterangan" TEXT DEFAULT NULL,
     CONSTRAINT fk_tables_id
         FOREIGN KEY (id_tables)
         REFERENCES tables(id_tables)

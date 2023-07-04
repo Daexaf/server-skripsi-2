@@ -20,18 +20,18 @@ const selectDetailKeranjang = (queryId) => {
 };
 
 const insertKeranjang = (queryObject) => {
-  const { id_keranjangs, jumlah, total_harga, product, id_tables } =
+  const { id_keranjangs, jumlah, total_harga, product, id_tables, keterangan } =
     queryObject;
   return Pool.query(
-    `INSERT INTO keranjangs(id_keranjangs, jumlah, total_harga, product,  id_tables)` +
-      `VALUES('${id_keranjangs}', '${jumlah}','${total_harga}', '${product}', '${id_tables}')`
+    `INSERT INTO keranjangs(id_keranjangs, jumlah, total_harga, product,  id_tables, keterangan)` +
+      `VALUES('${id_keranjangs}', '${jumlah}','${total_harga}', '${product}', '${id_tables}', '${keterangan}')`
   );
 };
 
 const updateKeranjang = (queryObject) => {
-  const { id_keranjangs, jumlah, total_harga, product } = queryObject;
+  const { id_keranjangs, jumlah, total_harga, product, keterangan } = queryObject;
   return Pool.query(
-    `UPDATE keranjangs SET jumlah='${jumlah}', total_harga='${total_harga}', product='${product}'` +
+    `UPDATE keranjangs SET jumlah='${jumlah}', total_harga='${total_harga}', product='${product}', keterangan='${keterangan}'` +
       `WHERE id_keranjangs='${id_keranjangs}'`
   );
 };
