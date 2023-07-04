@@ -9,7 +9,8 @@ const selectKeranjangByIdProduct = (queryId) => {
 };
 
 const selectKeranjangByIdTable = (queryId) => {
-  return Pool.query(`SELECT * FROM keranjangs WHERE id_tables='${queryId}'`);
+  // return Pool.query(`SELECT * FROM keranjangs WHERE id_tables='${queryId}'`);
+  return Pool.query(`SELECT keranjangs.*, json_agg(products.*) AS product FROM keranjangs INNER JOIN products on keranjangs.product = products.id_products WHERE keranjangs.id_tables='${queryId}' GROUP BY keranjangs.id_keranjangs`);
 };
 
 const selectDetailKeranjang = (queryId) => {
