@@ -23,6 +23,10 @@ app.use(
   })
 );
 
+process.on("uncaughtException", function (err) {
+  console.log(err);
+});
+
 // Port choice
 const port = process.env.PORT || 4000;
 // use Main Router
