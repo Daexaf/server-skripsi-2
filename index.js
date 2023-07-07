@@ -18,7 +18,11 @@ const midtransCore = new midtransClient.CoreApi({
 app.use(express.json());
 app.use(
   cors({
-    origin: ["https://e-duren-site.vercel.app"],
+    origin: [
+      "https://e-duren-site.vercel.app",
+      "http://localhost:3000/",
+      "https://e-duren-daexaf.vercel.app",
+    ],
     methods: ["GET", "PUT", "POST", "DELETE"],
   })
 );
