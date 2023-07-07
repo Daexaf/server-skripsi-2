@@ -20,7 +20,7 @@ app.use(
   cors({
     origin: [
       "https://e-duren-site.vercel.app",
-      "http://localhost:3000/",
+      "http://localhost:3000",
       "https://e-duren-daexaf.vercel.app",
       "https://master--e-duren-site.netlify.app",
     ],
