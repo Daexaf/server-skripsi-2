@@ -18,7 +18,7 @@ const midtransCore = new midtransClient.CoreApi({
 app.use(express.json());
 app.use(
   cors({
-    origin: ["http://server-skripsi-2-production.up.railway.app/"],
+    origin: ["https://server-skripsi-2-production.up.railway.app"],
     methods: ["GET", "PUT", "POST", "DELETE"],
   })
 );
