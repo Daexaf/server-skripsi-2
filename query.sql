@@ -8,7 +8,9 @@ CREATE TABLE "tables"(
     "id_tables" CHAR(36) PRIMARY KEY,
     "name" VARCHAR(255) NOT NULL,
     "no_telp" VARCHAR(255) NOT NULL,
-   "table_name" table_enum NOT NULL
+   "table_name" table_enum NOT NULL,
+   "time_start" VARCHAR(255) NOT NULL,
+   "time_end" VARCHAR(255) NOT NULL
 );
 
 CREATE TABLE "keranjangs"(

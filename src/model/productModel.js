@@ -1,7 +1,7 @@
 const Pool = require("../config/db");
 
 const selectAllProduct = () => {
-  return Pool.query(`SELECT * FROM products ORDER BY id_products ASC`);
+  return Pool.query(`SELECT * FROM products ORDER BY kode ASC`);
 };
 
 const selectProductByCategory = (queryId) => {
