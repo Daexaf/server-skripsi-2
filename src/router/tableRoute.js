@@ -10,5 +10,6 @@ router.post("/", tableController.addTable);
 router.put("/:id", tableController.editTable);
 // router.put("/:id", tableController.editTableEnd);
 router.delete("/:id", tableController.deleteTable);
+router.post("/checkout", tableController.checkoutMidtrans);
 // Export
 module.exports = router;

@@ -162,6 +162,62 @@ const deleteTable = async (req, res) => {
   }
 };
 
+const checkoutMidtrans = async (req, res) => {
+  const order_id = req.body.id_tables;
+  const gross_amount = req.body.total_bayar;
+  const first_name = req.body.name;
+  // const last_name = req.body.last_name;
+  // const email = req.body.email;
+  const phone = req.body.no_telp;
+
+  try {
+    const midtransClient = require("midtrans-client");
+    // Create Snap API instance
+    let snap = new midtransClient.Snap({
+      // Set to true if you want Production Environment (accept real transaction).
+      isProduction: false,
+      serverKey: "SB-Mid-server-o8AeFK89-NJwJwf6QY1RMTgu",
+    });
+
+    let parameter = {
+      transaction_details: {
+        order_id,
+        gross_amount,
+      },
+      credit_card: {
+        secure: true,
+      },
+      customer_details: {
+        first_name,
+        // last_name,
+        // email,
+        phone,
+      },
+    };
+
+    snap
+      .createTransaction(parameter)
+      .then((transaction) => {
+        // transaction token
+        let transactionToken = transaction.token;
+        console.log("transactionToken:", transactionToken);
+        res.send(transactionToken);
+        // console.log("transaksi:", transaction);
+      })
+      .catch((e) => {
+        e.message; // basic error message string
+        e.httpStatusCode; // HTTP status code e.g: 400, 401, etc.
+        e.ApiResponse; // JSON of the API response
+        e.rawHttpClientData; // raw Axios response object
+      });
+
+    // res.send("hahaha");
+  } catch (error) {
+    console.log(error);
+    return commonHelper.response(res, null, 500, "Failed to get all Admin");
+  }
+};
+
 module.exports = {
   getAllTable,
   getDetailTable,
@@ -170,4 +226,5 @@ module.exports = {
   editTable,
   // editTableEnd,
   deleteTable,
+  checkoutMidtrans,
 };

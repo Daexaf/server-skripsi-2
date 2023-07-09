@@ -3,6 +3,7 @@ const adminModel = require("../model/adminModels");
 const commonHelper = require("../helper/common");
 // Import random id
 const { v4: uuidv4 } = require("uuid");
+const Pool = require("../config/db");
 
 const getAllAdmin = async (req, res) => {
   // Set params as const
