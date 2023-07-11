@@ -44,4 +44,14 @@ CREATE TABLE "products"(
         ON DELETE CASCADE
 );
 
+CREATE TABLE "receipt" (
+    "id_receipts" CHAR(36) PRIMARY KEY,
+    "name" VARCHAR(255) NOT NULL,
+    "no_telp" VARCHAR(255) NOT NULL,
+    "total_bayar" VARCHAR(255) NOT NULL,
+    "time_start" VARCHAR(255) NOT NULL,
+    "status" VARCHAR(255) NOT NULL
+);
+
+
 CREATE TYPE title_enum AS ENUM ('mr', 'ms', 'mrs');

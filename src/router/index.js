@@ -8,12 +8,15 @@ const categoryRouter = require("./categoryRoute");
 const keranjangRouter = require("./keranjangRoute");
 const productRouter = require("./productRoute");
 const tableRouter = require("./tableRoute");
+const receiptRouter = require("./receiptRoute");
+
 // Use route
 router.use("/categories", categoryRouter);
 router.use("/keranjangs", keranjangRouter);
 router.use("/product", productRouter);
 router.use("/table", tableRouter);
 router.use("/admin", adminRouter);
+router.use("/receipt", receiptRouter);
 
 // Export router
 module.exports = router;
