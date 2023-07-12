@@ -119,28 +119,6 @@ const editTable = async (req, res) => {
   }
 };
 
-// const editTableEnd = async (req, res) => {
-//   // Set param id as const
-//   const queryId = req.params.id;
-//   req.body.queryId = queryId;
-//   // Update other field
-//   try {
-//     const updateResult = await tableModel.updateTableEnd(req.body);
-//     if (updateResult.rowCount > 0) {
-//       return commonHelper.response(res, updateResult.rows, 200, "Table edited");
-//     } else {
-//       return commonHelper.response(res, null, 404, "table not found");
-//     }
-//   } catch (error) {
-//     console.log(error);
-//     if (error.detail && error.detail.includes("already exists.")) {
-//       return commonHelper.response(res, null, 400, "table already exist");
-//     } else {
-//       return commonHelper.response(res, null, 500, "failed to update table");
-//     }
-//   }
-// };
-
 const deleteTable = async (req, res) => {
   // Set param id as const
   const queryId = req.params.id;
@@ -193,6 +171,12 @@ const checkoutMidtrans = async (req, res) => {
         // email,
         phone,
       },
+      payment_type: gopay,
+      gopay_partner: {
+        phone_number: phone,
+        country_code: 62,
+        redirect_url: "https://www.gojek.com",
+      },
     };
 
     snap
@@ -210,8 +194,6 @@ const checkoutMidtrans = async (req, res) => {
         e.ApiResponse; // JSON of the API response
         e.rawHttpClientData; // raw Axios response object
       });
-
-    // res.send("hahaha");
   } catch (error) {
     console.log(error);
     return commonHelper.response(res, null, 500, "Failed to get all Admin");
