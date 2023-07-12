@@ -171,12 +171,12 @@ const checkoutMidtrans = async (req, res) => {
         // email,
         phone,
       },
-      payment_type: gopay,
-      gopay_partner: {
-        phone_number: phone,
-        country_code: 62,
-        redirect_url: "https://www.gojek.com",
-      },
+      // payment_type: gopay,
+      // gopay_partner: {
+      //   phone_number: phone,
+      //   country_code: 62,
+      //   redirect_url: "https://www.gojek.com",
+      // },
     };
 
     snap
