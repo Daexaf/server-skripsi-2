@@ -10,7 +10,7 @@ CREATE TABLE "tables"(
     "no_telp" VARCHAR(255) NOT NULL,
    "table_name" table_enum NOT NULL,
    "time_start" VARCHAR(255) NOT NULL,
-   "time_end" VARCHAR(255) NOT NULL
+   "time_end" VARCHAR(255) NOT NULL,
 );
 
 CREATE TABLE "keranjangs"(
@@ -51,6 +51,13 @@ CREATE TABLE "receipt" (
     "total_bayar" VARCHAR(255) NOT NULL,
     "time_start" VARCHAR(255) NOT NULL,
     "status" VARCHAR(255) NOT NULL
+);
+
+CREATE TABLE review (
+  "id_review" CHAR(36) PRIMARY KEY,
+  "name" VARCHAR(255),
+  "rating" VARCHAR(255) NOT NULL,
+  "comment" VARCHAR(255) NOT NULL
 );
 
 
