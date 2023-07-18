@@ -50,7 +50,8 @@ CREATE TABLE "receipt" (
     "no_telp" VARCHAR(255) NOT NULL,
     "total_bayar" VARCHAR(255) NOT NULL,
     "time_start" VARCHAR(255) NOT NULL,
-    "status" VARCHAR(255) NOT NULL
+    "status" VARCHAR(255) NOT NULL,
+    "kode" VARCHAR(255) NOT NULL
 );
 
 CREATE TABLE review (

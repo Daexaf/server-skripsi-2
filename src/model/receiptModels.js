@@ -14,19 +14,22 @@ const selectDetailReceipt = (queryId) => {
 };
 
 const insertReceipt = (queryObject) => {
-  const { id_receipts, name, no_telp, total_bayar, time_start, status } =
+  const { id_receipts, name, no_telp, total_bayar, kode, time_start, status } =
     queryObject;
+
+  const kodeStringify = JSON.stringify(kode);
+  console.log(JSON.stringify(kode), "kode");
   return Pool.query(
-    `INSERT INTO receipt(id_receipts, name, no_telp, total_bayar, time_start, status)` +
-      `VALUES('${id_receipts}', '${name}', '${no_telp}', '${total_bayar}', '${time_start}', '${status}')`
+    `INSERT INTO receipt(id_receipts, name, no_telp, total_bayar, kode, time_start, status)` +
+      `VALUES('${id_receipts}', '${name}', '${no_telp}', '${total_bayar}', '${kodeStringify}','${time_start}', '${status}')`
   );
 };
 
 const updateReceipt = (queryObject) => {
-  const { id_receipts, name, no_telp, total_bayar, time_start, status } =
+  const { id_receipts, name, no_telp, total_bayar, kode, time_start, status } =
     queryObject;
   return Pool.query(
-    `UPDATE receipt SET name='${name}', no_telp='${no_telp}', total_bayar='${total_bayar}', time_start='${time_start}', status='${status}'` +
+    `UPDATE receipt SET name='${name}', no_telp='${no_telp}', total_bayar='${total_bayar}', kode='${kode}' ,time_start='${time_start}', status='${status}'` +
       `WHERE id_receipts='${id_receipts}'`
   );
 };
