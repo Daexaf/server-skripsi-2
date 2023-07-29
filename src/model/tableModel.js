@@ -1,16 +1,11 @@
 const Pool = require("../config/db");
 
-const selectAllTable = (queryLimit) => {
-  if (!queryLimit) {
-    queryLimit = 10;
-  }
-  return Pool.query(
-    `SELECT * FROM tables ORDER BY table_name ASC LIMIT '${queryLimit}'`
-  );
+const selectAllTable = () => {
+  return Pool.query(`SELECT * FROM tables ORDER BY table_name ASC`);
 };
 
 const selectDetailTable = (queryId) => {
-  return Pool.query(`SELECT * FROM tables WHERE id_tables='${queryId}'`);
+  return Pool.query("SELECT * FROM tables WHERE id_tables = $1", [queryId]);
 };
 
 const selectDetailName = (queryId) => {
@@ -42,6 +37,12 @@ const updateTable = (queryObject) => {
 //   );
 // };
 
+const updateTableTimeLogout = (queryId, time_logout) => {
+  return Pool.query(
+    `UPDATE tables SET time_end='${time_logout}' WHERE id_tables='${queryId}'`
+  );
+};
+
 const deleteTable = (queryId) => {
   return Pool.query(`DELETE FROM tables WHERE id_tables='${queryId}'`);
 };
@@ -59,4 +60,5 @@ module.exports = {
   updateTable,
   deleteTable,
   deleteTableByName,
+  updateTableTimeLogout,
 };

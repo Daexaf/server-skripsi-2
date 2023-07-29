@@ -6,10 +6,9 @@ const commonHelper = require("../helper/common");
 const { v4: uuidv4 } = require("uuid");
 
 const getAllTable = async (req, res) => {
-  // Set params as const
-  const queryLimit = req.query.limit;
   try {
-    const selectResult = await tableModel.selectAllTable(queryLimit);
+    const selectResult = await tableModel.selectAllTable();
+
     if (selectResult.rowCount > 0) {
       return commonHelper.response(
         res,
@@ -22,7 +21,7 @@ const getAllTable = async (req, res) => {
     }
   } catch (error) {
     console.log(error);
-    return commonHelper.response(res, null, 500, "Failed to table");
+    return commonHelper.response(res, null, 500, "Failed to fetch tables");
   }
 };
 
@@ -200,6 +199,35 @@ const checkoutMidtrans = async (req, res) => {
   }
 };
 
+const updateTableTimeLogout = async (req, res) => {
+  const queryId = req.params.id;
+  const time_logout = new Date(); // Mendapatkan waktu sekarang
+  try {
+    const updateResult = await tableModel.updateTableTimeLogout(
+      queryId,
+      time_logout
+    );
+    if (updateResult.rowCount > 0) {
+      return commonHelper.response(
+        res,
+        updateResult.rows,
+        200,
+        "Table time_logout updated"
+      );
+    } else {
+      return commonHelper.response(res, null, 404, "Table not found");
+    }
+  } catch (error) {
+    console.log(error);
+    return commonHelper.response(
+      res,
+      null,
+      500,
+      "Failed to update table time_logout"
+    );
+  }
+};
+
 module.exports = {
   getAllTable,
   getDetailTable,
@@ -209,4 +237,5 @@ module.exports = {
   // editTableEnd,
   deleteTable,
   checkoutMidtrans,
+  updateTableTimeLogout,
 };
