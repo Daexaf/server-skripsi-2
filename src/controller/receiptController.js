@@ -7,9 +7,8 @@ const { v4: uuidv4 } = require("uuid");
 
 const getAllReceipt = async (req, res) => {
   // Set params as const
-  const queryLimit = req.query.limit;
   try {
-    const selectResult = await receiptModels.selectAllReceipt(queryLimit);
+    const selectResult = await receiptModels.selectAllReceipt();
     if (selectResult.rowCount > 0) {
       return commonHelper.response(
         res,

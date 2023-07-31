@@ -1,7 +1,7 @@
 const Pool = require("../config/db");
 
-const selectAllReceipt = (queryLimit) => {
-  return Pool.query(`SELECT * FROM receipt ORDER BY name ASC '${queryLimit}'`);
+const selectAllReceipt = () => {
+  return Pool.query(`SELECT * FROM receipt ORDER BY name ASC`);
 };
 
 const selectDetailReceipt = (queryId) => {
