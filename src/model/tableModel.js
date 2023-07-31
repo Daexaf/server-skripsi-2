@@ -21,10 +21,17 @@ const insertTable = (queryObject) => {
 };
 
 const updateTable = (queryObject) => {
-  const { id_tables, name, no_telp, table_name, time_start, time_end } =
-    queryObject;
+  const {
+    id_tables,
+    name,
+    no_telp,
+    table_name,
+    time_start,
+    time_end,
+    time_logout,
+  } = queryObject;
   return Pool.query(
-    `UPDATE tables SET name='${name}', no_telp='${no_telp}', table_name='${table_name}', time_start='${time_start}', time_end='${time_end}'` +
+    `UPDATE tables SET name='${name}', no_telp='${no_telp}', table_name='${table_name}', time_start='${time_start}', time_end='${time_end}', time_logout='${time_logout}'` +
       `WHERE id_tables='${id_tables}'`
   );
 };
@@ -36,12 +43,6 @@ const updateTable = (queryObject) => {
 //       `WHERE id_tables='${id_tables}'`
 //   );
 // };
-
-const updateTableTimeLogout = (queryId, time_logout) => {
-  return Pool.query(
-    `UPDATE tables SET time_end='${time_logout}' WHERE id_tables='${queryId}'`
-  );
-};
 
 const deleteTable = (queryId) => {
   return Pool.query(`DELETE FROM tables WHERE id_tables='${queryId}'`);
@@ -60,5 +61,4 @@ module.exports = {
   updateTable,
   deleteTable,
   deleteTableByName,
-  updateTableTimeLogout,
 };

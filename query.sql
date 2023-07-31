@@ -10,7 +10,7 @@ CREATE TABLE "tables"(
     "no_telp" VARCHAR(255) NOT NULL,
    "table_name" table_enum NOT NULL,
    "time_start" VARCHAR(255) NOT NULL,
-   "time_order" VARCHAR(255) NOT NULL,
+   "time_logout" VARCHAR(255) NOT NULL,
    "time_end" VARCHAR(255) NOT NULL,
 );
 
