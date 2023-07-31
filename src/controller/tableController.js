@@ -89,8 +89,10 @@ const addTable = async (req, res) => {
   } catch (error) {
     console.log(error);
     if (error.detail && error.detail.includes("already exists.")) {
+      console.log(error);
       return commonHelper.response(res, null, 400, "table already exist");
     } else {
+      console.log(error);
       return commonHelper.response(res, null, 500, "Failed to add table");
     }
   }
@@ -113,6 +115,7 @@ const editTable = async (req, res) => {
     if (error.detail && error.detail.includes("already exists.")) {
       return commonHelper.response(res, null, 400, "table already exist");
     } else {
+      console.log(error);
       return commonHelper.response(res, null, 500, "failed to update table");
     }
   }

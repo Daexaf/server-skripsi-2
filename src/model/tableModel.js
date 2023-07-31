@@ -21,17 +21,10 @@ const insertTable = (queryObject) => {
 };
 
 const updateTable = (queryObject) => {
-  const {
-    id_tables,
-    name,
-    no_telp,
-    table_name,
-    time_start,
-    time_end,
-    time_logout,
-  } = queryObject;
+  const { id_tables, name, no_telp, table_name, time_start, time_end } =
+    queryObject;
   return Pool.query(
-    `UPDATE tables SET name='${name}', no_telp='${no_telp}', table_name='${table_name}', time_start='${time_start}', time_end='${time_end}', time_logout='${time_logout}'` +
+    `UPDATE tables SET name='${name}', no_telp='${no_telp}', table_name='${table_name}', time_end='${time_end}'` +
       `WHERE id_tables='${id_tables}'`
   );
 };
