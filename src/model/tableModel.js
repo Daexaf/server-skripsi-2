@@ -5,7 +5,7 @@ const selectAllTable = () => {
 };
 
 const selectDetailTable = (queryId) => {
-  return Pool.query("SELECT * FROM  WHERE id_tables = $1", [queryId]);
+  return Pool.query("SELECT * FROM tables WHERE id_tables = $1", [queryId]);
 };
 
 const selectDetailName = (queryId) => {
@@ -13,10 +13,10 @@ const selectDetailName = (queryId) => {
 };
 
 const insertTable = (queryObject) => {
-  const { id_tables, name, no_telp, table_name, time_end } = queryObject;
+  const { id_tables, name, no_telp, table_name, time_start } = queryObject;
   return Pool.query(
     `INSERT INTO tables(id_tables, name, no_telp, table_name, time_start)` +
-      `VALUES('${id_tables}', '${name}', '${no_telp}', '${table_name}', '${time_end}')`
+      `VALUES('${id_tables}', '${name}', '${no_telp}', '${table_name}', '${time_start}')`
   );
 };
 
