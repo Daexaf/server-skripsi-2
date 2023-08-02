@@ -14,6 +14,7 @@ const selectDetailName = (queryId) => {
 
 const insertTable = (queryObject) => {
   const { id_tables, name, no_telp, table_name, time_start } = queryObject;
+  console.log(time_start, "waktu");
   return Pool.query(
     `INSERT INTO tables(id_tables, name, no_telp, table_name, time_start)` +
       `VALUES('${id_tables}', '${name}', '${no_telp}', '${table_name}', '${time_start}')`
@@ -21,9 +22,11 @@ const insertTable = (queryObject) => {
 };
 
 const updateTable = (queryObject) => {
-  const { id_tables, name, no_telp, table_name, time_end } = queryObject;
+  const { id_tables, name, no_telp, table_name, time_end, time_logout } =
+    queryObject;
   return Pool.query(
-    `UPDATE tables SET name='${name}', no_telp='${no_telp}', table_name='${table_name}', time_end='${time_end}'` +
+    `UPDATE tables SET name='${name}', no_telp='${no_telp}', table_name='${table_name}', time_end='${time_end}', ` +
+      `time_logout='${time_logout ? time_logout : "0"}'` +
       `WHERE id_tables='${id_tables}'`
   );
 };
